@@ -42,6 +42,82 @@ document.querySelector(".print-button")?.addEventListener("click", () => window.
 const year = document.querySelector("#current-year");
 if (year) year.textContent = String(new Date().getFullYear());
 
+const flashMessageKey = "portfolio.flashMessage";
+const flashMessageExpiryKey = "portfolio.flashMessageExpiry";
+
+function showFlashMessage(message, state = "success") {
+  if (!contactFeedback) return;
+  contactFeedback.textContent = message;
+  contactFeedback.dataset.state = state;
+  contactFeedback.setAttribute("role", state === "error" ? "alert" : "status");
+  contactFeedback.hidden = false;
+}
+
+function consumeFlashMessage() {
+  try {
+    const message = sessionStorage.getItem(flashMessageKey);
+    const expiresAt = Number(sessionStorage.getItem(flashMessageExpiryKey));
+    sessionStorage.removeItem(flashMessageKey);
+    sessionStorage.removeItem(flashMessageExpiryKey);
+    if (message && expiresAt > Date.now()) showFlashMessage(message);
+  } catch {
+    showFlashMessage("Your browser could not restore the message feedback.", "error");
+  }
+}
+
+const sessionVisit = document.querySelector("#session-visit");
+if (sessionVisit) {
+  try {
+    const previousCount = Number(sessionStorage.getItem("portfolio.visitCount"));
+    const visitCount = Number.isSafeInteger(previousCount) && previousCount > 0
+      ? previousCount + 1
+      : 1;
+    sessionStorage.setItem("portfolio.visitCount", String(visitCount));
+    sessionVisit.textContent = `Session visit: ${visitCount}`;
+  } catch {
+      sessionVisit.textContent = "Session tracking unavailable";
+  }
+}
+
+const contactForm = document.querySelector("#contact-form");
+const contactFeedback = document.querySelector("#contact-feedback");
+
+if (contactForm && contactFeedback) {
+  consumeFlashMessage();
+
+  contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const formData = new FormData(contactForm);
+    const name = String(formData.get("name")).trim();
+    const email = String(formData.get("email")).trim();
+    const message = String(formData.get("message")).trim();
+    const flashMessage = "An email draft is ready. Send it from your email app to deliver your message.";
+
+    if (!name || !email || !message) {
+      showFlashMessage("Please complete all fields before preparing your email.", "error");
+      return;
+    }
+
+    const subject = `Portfolio message from ${name}`;
+    const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+    const mailtoUrl = `mailto:akandejamiu1@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    try {
+      sessionStorage.setItem(flashMessageKey, flashMessage);
+      sessionStorage.setItem(flashMessageExpiryKey, String(Date.now() + 5 * 60 * 1000));
+      consumeFlashMessage();
+    } catch {
+      showFlashMessage("Your browser could not save message feedback. You can still send the email draft.");
+    }
+
+    const emailLink = document.createElement("a");
+    emailLink.href = mailtoUrl;
+    emailLink.target = "_blank";
+    emailLink.rel = "noopener";
+    emailLink.click();
+  });
+}
+
 if ("IntersectionObserver" in window) {
   const observer = new IntersectionObserver((entries, activeObserver) => {
     entries.forEach((entry) => {

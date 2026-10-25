@@ -346,9 +346,27 @@
           <div class="contact-content">
             <p class="eyebrow">07 / THE NEXT CHAPTER</p>
             <h2 id="contact-title">Have a good<br />one in <span>mind?</span></h2>
-            <p>I’m open to connecting, learning from others, and exploring opportunities to build useful things together.</p>
+            <p>I’m open to connecting, learning from others, and exploring opportunities to build useful things together. Send me a message and I’ll get back to you.</p>
+            <form class="contact-form" id="contact-form">
+              <div class="contact-fields">
+                <label>
+                  Your name
+                  <input name="name" type="text" autocomplete="name" maxlength="120" required />
+                </label>
+                <label>
+                  Email address
+                  <input name="email" type="email" autocomplete="email" maxlength="254" required />
+                </label>
+                <label class="contact-message-field">
+                  Message
+                  <textarea name="message" rows="4" maxlength="2000" required></textarea>
+                </label>
+              </div>
+              <button class="button button-light" type="submit">Prepare email <span aria-hidden="true">↗</span></button>
+              <div class="contact-feedback" id="contact-feedback" role="status" aria-live="polite" hidden></div>
+            </form>
             <div class="contact-actions">
-              <a class="button button-light" href="mailto:akandejamiu1@gmail.com">Email me <span aria-hidden="true">↗</span></a>
+              <a class="button button-outline" href="mailto:akandejamiu1@gmail.com">Email me directly <span aria-hidden="true">↗</span></a>
               <a class="button button-outline" href="https://linkedin.com/in/jamiu-abdulsalam" target="_blank" rel="noreferrer">Connect on LinkedIn <span aria-hidden="true">↗</span></a>
               <a class="button button-outline" href="https://github.com/10abdulsalam" target="_blank" rel="noreferrer">Find me on GitHub <span aria-hidden="true">↗</span></a>
             </div>
@@ -363,6 +381,7 @@
         <a class="footer-brand" href="#home">Abdulsalam Jamiu<span>.</span></a>
         <p>Made with curiosity &amp; a lot of JavaScript.</p>
         <div class="footer-links">
+          <span id="session-visit" aria-live="polite">Session visit: —</span>
           <a href="https://linkedin.com/in/jamiu-abdulsalam" target="_blank" rel="noreferrer">LinkedIn ↗</a>
           <a href="https://github.com/10abdulsalam" target="_blank" rel="noreferrer">GitHub ↗</a>
           <a href="#home">Back to top ↑</a>

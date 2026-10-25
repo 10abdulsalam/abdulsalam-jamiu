@@ -24,25 +24,28 @@ the path I’m taking to grow as a developer.
 - CSS
 - JavaScript
 
-The site is static and does not require a build step or package installation.
-
 ## Run locally
 
-Clone the repository, then either open `index.html` in a browser or start a
-local web server from the repository root:
+Open `index.html` in a browser or start a local web server from the repository
+root:
 
 ```sh
 python3 -m http.server 8000
 ```
 
-Visit [http://localhost:8000](http://localhost:8000).
+Visit [http://localhost:8000](http://localhost:8000). The session visit count
+and one-time feedback use browser `sessionStorage`, so they work without a
+backend and reset when the browser tab session ends. The contact form prepares
+a prefilled email draft; the visitor must send it from their email app.
 
 ## Deployment
 
 The site is deployed to GitHub Pages by the workflow in
 `.github/workflows/static.yml`. It deploys the repository contents when changes
 are pushed to the `main` branch, and can also be run manually from GitHub
-Actions.
+Actions. Session tracking, flash feedback, and the email-draft form work on
+GitHub Pages because they run entirely in the browser. Email delivery itself
+requires the visitor to send the prepared draft.
 
 ## Contact
 
