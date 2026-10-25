@@ -50,4 +50,4 @@ requires the visitor to send the prepared draft.
 ## Contact
 
 - [GitHub](https://github.com/10abdulsalam)
-- [LinkedIn](https://linkedin.com/in/jamiu-abdulsalam-490787137)
+- [LinkedIn](https://www.linkedin.com/in/abdulsalam-jamiu-490787137)
